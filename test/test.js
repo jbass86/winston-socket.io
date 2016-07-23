@@ -1,27 +1,21 @@
 
-var winston = require("winston");
+var vows = require('vows');
+var assert = require('assert');
+var winston = require('winston');
+var SocketIO = require('../lib/winston-socketio').SocketIO;
 
 
 require("../lib/winston-socketio");
 
-var app = require("express");
-var server = require("http").createServer(app);
-var io = require('socket.io')(server);
+vows.describe("winston-socketio").addBatch({
 
-server.listen(3000, "localhost");
+  "Create Instance of the transport": {
+    topic: function(){
+      return new SocketIO({});
+    },
 
-io.of("/log").on("connection", function(socket){
-  console.log("got a new log connection");
-  socket.on("log", function(data){
-    console.log("got log data");
-    console.log(data);
-  });
-});
-
-
-winston.add(winston.transports.SocketIO);
-
-setTimeout(function(){
-  winston.log("info", "Yo Lets log to socket.io");
-  winston.log("error", "Hey I logged an error");
-}, 1000);
+    "is this an instance of the transport": function(topic){
+      assert.instanceOf(topic, SocketIO);
+    }
+  }
+}).export(module);
