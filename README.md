@@ -1,6 +1,7 @@
 #winston-socketio
 
-https://travis-ci.org/jbass86/winston-socket.io.svg?branch=master
+[![Build Status](https://travis-ci.org/jbass86/winston-socket.io.svg?branch=master)
+
 
 A socket.io transport for winstonjs.  Gives you the ability to log directly to a socket.io server.
 
