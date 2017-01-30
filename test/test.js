@@ -38,9 +38,9 @@ vows.describe("winston-socketio").addBatch({
                 assert.deepEqual(transport.reconnect, true);
             },
 
-            "can you set path option": function(topic) {
-                var transport = new topic({ path: "josh_nsp" });
-                assert.deepEqual(transport.path, "josh_nsp");
+            "can you set namespace option": function(topic) {
+                var transport = new topic({ namespace: "josh_nsp" });
+                assert.deepEqual(transport.namespace, "josh_nsp");
             },
 
             "can you set logformat option": function(topic) {
@@ -54,8 +54,8 @@ vows.describe("winston-socketio").addBatch({
             },
 
             "can you set log topic option": function(topic) {
-                var transport = new topic({ channel: "josh_topic" });
-                assert.deepEqual(transport.channel, "josh_topic");
+                var transport = new topic({ log_topic: "josh_topic" });
+                assert.deepEqual(transport.log_topic, "josh_topic");
             },
 
             "can you set max queue size option": function(topic) {
