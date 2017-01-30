@@ -1,7 +1,6 @@
 #winston-socket.io
 
-![Build Status](https://travis-ci.org/jbass86/winston-socket.io.svg?branch=master) [![Dependency Status](https://david-dm.org/jbass86/winston-socket.io.svg)](https://david-dm.org/jbass86/winston-socket.io)
-
+Based on https://github.com/jbass86's winston-socket.io build.  Forked from https://github.com/jbass86/winston-socket.io
 
 A socket.io transport for winstonjs.  Gives you the ability to log directly to a socket.io server. 
 
