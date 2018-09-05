@@ -83,7 +83,7 @@ vows.describe("winston-socketio").addBatch({
                     logger.remove(logger.transports.socketio);
                 }, Error);
             },
-            "Can we add the winson transport log to it errors": function(topic) {
+            "Can we add the winson transport and log to it without any errors": function(topic) {
                 assert.doesNotThrow(function() {
 	                let logger = winston.createLogger({});
 	                logger.add(new topic({host : "http://somehost", port : 8085}));
@@ -91,5 +91,6 @@ vows.describe("winston-socketio").addBatch({
                     logger.remove(logger.transports.socketio);
                 }, Error);
             }
+            // TODO : Add tests that actually validate what was logged over socket.io
         }
     }).export(module);
