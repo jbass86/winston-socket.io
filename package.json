@@ -1,6 +1,6 @@
 {
   "name": "winston-socket.io",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A winston transport that will emit logs to a socket.io server.",
   "main": "lib/winston-socketio.js",
   "scripts": {
@@ -22,13 +22,13 @@
   },
   "homepage": "https://github.com/jbass86/winston-socket.io#readme",
   "dependencies": {
-    "socket.io-client": "^1.4.8",
-    "winston": "^2.2.0"
+    "socket.io-client": "^2.1.1",
+    "winston": "^3.0.0"
   },
   "devDependencies": {
-    "socket.io": "^1.4.8",
-    "express": "^4.14.0",
-    "vows": "^0.8.1"
+    "socket.io": "^2.1.1",
+    "express": "^4.16.3",
+    "vows": "^0.8.2"
   },
   "engines": {
     "node": ">= 0.10.0"
