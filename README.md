@@ -22,18 +22,22 @@ A socket.io transport for winstonjs.  Gives you the ability to log directly to a
   const winston = require('winston');
   require('winston-socket.io');
 
-  let logger = winston.createLogger({});
-
-  logger.add(new winston.transports.SocketIO({
-    host: "https://myhost",
-    port: 8080,
-    secure: true,
-    reconnect: true,
-    namespace: "josh_logs",
-    log_topic: "josh_logs"
-  }));
-  
-  
+  let logger = winston.createLogger({
+    level: "info",
+    transports: [
+      new winston.transports.Console(),
+      new winston.transports.SocketIO(
+        {
+          host: "http://myhost",
+          port: 8080
+          secure: true,
+          reconnect: true,
+          namespace: "log",
+          log_topic: "log"
+        }
+      )
+    ]
+  });  
 
   logger.log("info", "I'm logging to the socket.io server!!!");
 ```
@@ -45,10 +49,11 @@ Can also be added to Winston as a transport in this method
   const winston = require('winston');
   require('winston-socket.io');
 
-  //set up logging
-  let logger = winston.createLogger({
-      transports: [
-          new winston.transports.Console(),
-          new winston.transports.SocketIO({host: "https://myhost" , port: portNumber, log_topic:"josh_logs", secure: true, reconnect: true})
-      ]
+  winston.add(new winston.transports.SocketIO({
+    host: "http://myhost",
+    port: 8080
+    secure: true,
+    reconnect: true,
+    namespace: "log",
+    log_topic: "log"
   }));
