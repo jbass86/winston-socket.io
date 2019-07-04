@@ -1,6 +1,6 @@
 {
   "name": "winston-socket.io",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A winston transport that will emit logs to a socket.io server.",
   "main": "lib/winston-socketio.js",
   "scripts": {
