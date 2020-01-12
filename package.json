@@ -4,7 +4,7 @@
   "description": "A winston transport that will emit logs to a socket.io server.",
   "main": "lib/winston-socketio.js",
   "scripts": {
-    "test": "vows --spec --isolate"
+    "test": "vows --spec --isolate && mocha --exit ./jest-tests/winston-socket.test.js"
   },
   "repository": {
     "type": "git",
@@ -23,11 +23,14 @@
   "homepage": "https://github.com/jbass86/winston-socket.io#readme",
   "dependencies": {
     "socket.io-client": "^2.2.0",
+    "socket.io-encrypt": "^0.1.1",
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "express": "^4.16.3",
-    "socket.io": "^2.2.0",
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "mocha": "^7.0.0",
+    "socket.io": "^2.3.0",
     "vows": "^0.8.2"
   },
   "engines": {
