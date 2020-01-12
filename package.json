@@ -6,6 +6,7 @@
   "scripts": {
     "test": "vows --spec --isolate && mocha --exit ./jest-tests/winston-socket.test.js"
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jbass86/winston-socket.io.git"
