@@ -1,6 +1,7 @@
 import Transport from 'winston-transport';
 import { Socket } from 'socket.io-client';
-interface SocketIOOptions extends Transport.TransportStreamOptions {
+
+export interface SocketIOOptions extends Transport.TransportStreamOptions {
     secure?: boolean;
     host?: string;
     port?: number;
