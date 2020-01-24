@@ -60,7 +60,13 @@ vows.describe("winston-socketio").addBatch({
             "can you set max queue size option": function(topic) {
                 let transport = new topic({ max_queue_size: 550 });
                 assert.deepEqual(transport.max_queue_size, 550);
-            }
+            },
+
+            "can you set encryption bool and secret": function (topic) {
+                let transport = new topic({ encrypt: true, secret: "hello" });
+                assert.deepEqual(transport.encrypt, true);
+                assert.deepEqual(transport.secret, "hello");
+            },
         }
     })
     .addBatch({
@@ -70,23 +76,31 @@ vows.describe("winston-socketio").addBatch({
                 return SocketIO;
             },
 
-            "Can we add the winson transport without any errors": function(topic) {
+            "Can we add the winston transport without any errors": function(topic) {
                 assert.doesNotThrow(function() {
                     let logger = winston.createLogger({});
                     logger.add(new topic({host : "http://somehost", port : 8085}));
                 }, Error);
             },
-            "Can we add the winson transport and then remove it without any errors": function(topic) {
+            "Can we add the winston transport and then remove it without any errors": function(topic) {
                 assert.doesNotThrow(function() {
 	                let logger = winston.createLogger({});
 	                logger.add(new topic({host : "http://somehost", port : 8085}));
                     logger.remove(logger.transports.socketio);
                 }, Error);
             },
-            "Can we add the winson transport and log to it without any errors": function(topic) {
+            "Can we add the winston transport and log to it without any errors": function(topic) {
                 assert.doesNotThrow(function() {
 	                let logger = winston.createLogger({});
 	                logger.add(new topic({host : "http://somehost", port : 8085}));
+                    logger.log("info", "test log");
+                    logger.remove(logger.transports.socketio);
+                }, Error);
+            },
+            "Can we add the winston transport, encrypt it and log to it without any errors": function (topic) {
+                assert.doesNotThrow(function () {
+                    let logger = winston.createLogger({});
+                    logger.add(new topic({ host: "http://somehost", port: 8085 , encrypt: true , secret: "secret"}));
                     logger.log("info", "test log");
                     logger.remove(logger.transports.socketio);
                 }, Error);

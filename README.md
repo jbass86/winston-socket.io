@@ -13,6 +13,8 @@ A socket.io transport for winstonjs.  Gives you the ability to log directly to a
 * __reconnect__: Reconnect to socket.io server connection __(default: false)__.
 * __namespace__: The socket.io namespace to use for the logs __(default: "log")__.
 * __log_topic__: The topic to send the log messages on __(default: "log")__.
+* __encrypt__: Choose to encrypt winston socket logs or not __(default: false)__
+* __secret__: the passphrase to encrypt logs with [needs __encrypt__ to be __true__ to allow changing it ] __(default: null)__ 
 * __log_format__: The format in which to log the information.
 * __max_queue_size__: The maximum number of messages to queue up for publishing if the client isnt connected to the server __(default: 1000)__.
 
