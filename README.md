@@ -5,6 +5,8 @@
 
 A socket.io transport for winstonjs.  Gives you the ability to log directly to a socket.io server. 
 
+See the examples folder for more usage details.
+
 ##Options
 
 * __host__: The hostname of the socket.io server __(default: http://localhost)__.
@@ -42,6 +44,7 @@ A socket.io transport for winstonjs.  Gives you the ability to log directly to a
   });  
 
   logger.log("info", "I'm logging to the socket.io server!!!");
+  logger.log("info", "I'm logging something else", {meta: "some additional info"});
 ```
 
 Can also be added to Winston as a transport in this method 

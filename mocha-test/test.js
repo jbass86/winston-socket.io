@@ -1,10 +1,13 @@
-let vows = require('vows');
-let assert = require('assert');
-let winston = require('winston');
-let SocketIO = require('../lib/winston-socketio');
+// @ts-nocheck
+
+const vows = require('vows');
+const assert = require('assert');
+const winston = require('winston');
+const SocketIO = require('../lib/winston-socketio');
+
+const mocha = require('mocha');
 
 
-require("../lib/winston-socketio");
 
 vows.describe("winston-socketio").addBatch({
 
@@ -80,6 +83,7 @@ vows.describe("winston-socketio").addBatch({
                 assert.doesNotThrow(function() {
                     let logger = winston.createLogger({});
                     logger.add(new topic({host : "http://somehost", port : 8085}));
+                    logger.close();
                 }, Error);
             },
             "Can we add the winston transport and then remove it without any errors": function(topic) {
@@ -87,6 +91,7 @@ vows.describe("winston-socketio").addBatch({
 	                let logger = winston.createLogger({});
 	                logger.add(new topic({host : "http://somehost", port : 8085}));
                     logger.remove(logger.transports.socketio);
+                    logger.close();
                 }, Error);
             },
             "Can we add the winston transport and log to it without any errors": function(topic) {
@@ -95,14 +100,16 @@ vows.describe("winston-socketio").addBatch({
 	                logger.add(new topic({host : "http://somehost", port : 8085}));
                     logger.log("info", "test log");
                     logger.remove(logger.transports.socketio);
+                    logger.close();
                 }, Error);
             },
             "Can we add the winston transport, encrypt it and log to it without any errors": function (topic) {
                 assert.doesNotThrow(function () {
                     let logger = winston.createLogger({});
-                    logger.add(new topic({ host: "http://somehost", port: 8085 , encrypt: true , secret: "secret"}));
+                    logger.add(new topic({host: "http://somehost", port: 8085 , encrypt: true , secret: "secret"}));
                     logger.log("info", "test log");
                     logger.remove(logger.transports.socketio);
+                    logger.close();
                 }, Error);
             }
             // TODO : Add tests that actually validate what was logged over socket.io

@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 var winston = require("winston");
 require("../lib/winston-socketio");
@@ -18,9 +19,9 @@ let logger = winston.createLogger({
   ]
 });
 
-logger.log("info", "Yo Lets log to socket.io");
+logger.log("info", "Yo Lets log to socket.io", {someBool: true});
+logger.log("info", {message: "jsut a meta message", meta: "more info"});
 logger.log("error", "Hey I logged an error");
 
 logger.level = "debug";
-
 logger.log("debug", "Some more logging....");
