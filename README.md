@@ -1,4 +1,4 @@
-#winston-socket.io
+# winston-socket.io
 
 ![Build Status](https://travis-ci.org/jbass86/winston-socket.io.svg?branch=master) [![Dependency Status](https://david-dm.org/jbass86/winston-socket.io.svg)](https://david-dm.org/jbass86/winston-socket.io)
 
@@ -7,7 +7,7 @@ A socket.io transport for winstonjs.  Gives you the ability to log directly to a
 
 See the examples folder for more usage details.
 
-##Options
+## Options
 
 * __host__: The hostname of the socket.io server __(default: http://localhost)__.
 * __port__: The port of the socket.io server __(default: 3000)__.
@@ -20,7 +20,7 @@ See the examples folder for more usage details.
 * __log_format__: The format in which to log the information.
 * __max_queue_size__: The maximum number of messages to queue up for publishing if the client isnt connected to the server __(default: 1000)__.
 
-##How to use it
+## How to use it
 
 ``` js
   const winston = require('winston');
