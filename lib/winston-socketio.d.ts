@@ -9,7 +9,10 @@ export interface SocketIOOptions extends Transport.TransportStreamOptions {
     namespace?: string;
     log_topic?: string;
     log_format?: any;
-    max_queue_size?: number;
+    max_buffer?: number;
+    batch?: boolean;
+    batch_interval?: number;
+    batch_count?: number;
 }
 export declare class SocketIO extends Transport {
     default_format: Function;
@@ -25,6 +28,7 @@ export declare class SocketIO extends Transport {
     socket: typeof Socket;
     _state: string;
     _queue: Array<any>;
+    _flush_task: number;
     constructor(options: SocketIOOptions);
     log(options: any, callback: Function): void;
     open(callback: Function): void;
