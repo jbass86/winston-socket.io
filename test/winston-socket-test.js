@@ -39,7 +39,7 @@ describe("standard winston socket test", function () {
     server.listen(3002, "localhost");
     io.on("connection", function (socket) {
       socket.on("log", function (data) {
-        JSON.stringify(data).should.equal("{\"meta\":\"some additional data\",\"level\":\"info\",\"message\":\"I'm logging to the socket.io server!!!\"}");
+        JSON.stringify(data).should.equal("[{\"meta\":\"some additional data\",\"level\":\"info\",\"message\":\"I'm logging to the socket.io server!!!\"}]");
         done();
       });
     });
@@ -87,7 +87,7 @@ describe("encrypted winston socket test", function () {
     io.use(encrypt("secret"));
     io.on("connection", function (socket) {
     socket.on("log_encrypted", function (data) {
-    JSON.stringify(data).should.equal("{\"level\":\"info\",\"message\":\"I'm logging encrypted message to the socket.io server!!!\"}");
+    JSON.stringify(data).should.equal("[{\"level\":\"info\",\"message\":\"I'm logging encrypted message to the socket.io server!!!\"}]");
       done();
     });
 

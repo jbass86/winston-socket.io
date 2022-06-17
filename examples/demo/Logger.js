@@ -17,6 +17,9 @@ const log = winston.createLogger({
     {
       reconnect: true,
       namespace: "log",
+      batch: true,
+      batch_interval: 5000,
+      batch_count: 25
     })
   ]
 });
