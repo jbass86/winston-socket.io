@@ -9,8 +9,8 @@ let logger = winston.createLogger({
     new winston.transports.Console(),
     new winston.transports.SocketIO(
       {
-        host: "http://localhost",
-        secure: true,
+        host: "localhost",
+        secure: false,
         reconnect: true,
         namespace: "log",
         log_topic: "log"

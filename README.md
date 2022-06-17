@@ -9,7 +9,7 @@ See the examples folder for more usage details.
 
 ## Options
 
-* __host__: The hostname of the socket.io server __(default: http://localhost)__.
+* __host__: The hostname of the socket.io server __(default: localhost)__.
 * __port__: The port of the socket.io server __(default: 3000)__.
 * __secure__: Use https for the socket.io server connection __(default: false)__.
 * __reconnect__: Reconnect to socket.io server connection __(default: false)__.
@@ -32,7 +32,7 @@ See the examples folder for more usage details.
       new winston.transports.Console(),
       new winston.transports.SocketIO(
         {
-          host: "http://myhost",
+          host: "myhost",
           port: 8080
           secure: true,
           reconnect: true,
@@ -55,10 +55,25 @@ Can also be added to Winston as a transport in this method
   require('winston-socket.io');
 
   winston.add(new winston.transports.SocketIO({
-    host: "http://myhost",
+    host: "myhost",
     port: 8080
     secure: true,
     reconnect: true,
     namespace: "log",
     log_topic: "log"
   }));
+```
+
+## Browser Demo
+
+If you want to try it out (Assuming you have nodejs installed):
+
+``` bash
+  git clone https://github/jbass86/winston-socket.io
+  cd winston-socket.io
+  npm install
+  npx gulp build-demo
+  node examples/demo/app.js
+```
+
+Then open your browser up and navigate to "localhost:8080"

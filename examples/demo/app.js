@@ -7,8 +7,6 @@ const socketio = require("socket.io");
 
 const httpServer = require("http").Server;
 
-const { json, text, raw, urlencoded } = require("body-parser");
-
 const expressApp = express();
 const server = httpServer(expressApp);
 

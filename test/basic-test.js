@@ -9,12 +9,12 @@ const SocketIO = require('../lib/winston-socketio');
 describe("Basic Tests", () => {
 
   it("Is this an instance of the transport", () => {
-    const transport = new SocketIO({ host: "http://test" });
+    const transport = new SocketIO({ host: "test" });
     assert.deepEqual(transport.host, "http://test");
   });
 
   it("Can you set hostname option", () => {
-    const transport = new SocketIO({ host: "http://test" });
+    const transport = new SocketIO({ host: "test" });
     assert.deepEqual(transport.host, "http://test");
   });
 
@@ -69,7 +69,7 @@ describe("Winston Integration Tests", () => {
   it("Can we add the winston transport without any errors", () => {
     assert.doesNotThrow(function() {
       const logger = winston.createLogger({});
-      logger.add(new SocketIO({host : "http://somehost", port : 8085}));
+      logger.add(new SocketIO({host : "somehost", port : 8085}));
       logger.close();
     }, Error);
   });
@@ -77,7 +77,7 @@ describe("Winston Integration Tests", () => {
   it("Can we add the winston transport and then remove it without any errors", () => {
     assert.doesNotThrow(function() {
       const logger = winston.createLogger({});
-      logger.add(new SocketIO({host : "http://somehost", port : 8085}));
+      logger.add(new SocketIO({host : "somehost", port : 8085}));
         logger.remove(logger.transports.socketio);
         logger.close();
     }, Error);
@@ -86,7 +86,7 @@ describe("Winston Integration Tests", () => {
   it("Can we add the winston transport and log to it without any errors", () => {
     assert.doesNotThrow(function() {
       const logger = winston.createLogger({});
-      logger.add(new SocketIO({host : "http://somehost", port : 8085}));
+      logger.add(new SocketIO({host : "somehost", port : 8085}));
         logger.log("info", "test log");
         logger.remove(logger.transports.socketio);
         logger.close();
@@ -96,7 +96,7 @@ describe("Winston Integration Tests", () => {
   it("Can we add the winston transport, encrypt it and log to it without any errors", () => {
     assert.doesNotThrow(function () {
       const logger = winston.createLogger({});
-      logger.add(new SocketIO({host: "http://somehost", port: 8085 , encrypt: true , secret: "secret"}));
+      logger.add(new SocketIO({host: "somehost", port: 8085 , encrypt: true , secret: "secret"}));
       logger.log("info", "test log");
       logger.remove(logger.transports.socketio);
       logger.close();

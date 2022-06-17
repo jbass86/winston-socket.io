@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./examples/demo/client.js",
+  entry: "./examples/demo/main.js",
   resolve: {
     alias: {},
     fallback: {
@@ -66,7 +66,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({inject: "head"}),
+    new HtmlWebpackPlugin({inject: "head", title: "Winston Transport Demo"}),
     
     new webpack.ProvidePlugin({ 
     	process: 'process/browser', 

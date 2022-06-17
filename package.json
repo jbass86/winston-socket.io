@@ -36,6 +36,7 @@
     "buffer": "^6.0.3",
     "chai": "^4.3.6",
     "crypto-browserify": "^3.12.0",
+    "css-loader": "^6.7.1",
     "del": "^6.1.1",
     "express": "^4.18.1",
     "file-loader": "^6.2.0",

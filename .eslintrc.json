@@ -7,6 +7,7 @@
       "semi": "error"
   },
   "env": {
-      "node": true
+      "node": true,
+      "browser": true
   }
 }

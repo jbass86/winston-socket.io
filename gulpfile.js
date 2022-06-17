@@ -35,7 +35,7 @@ function clean_demo() {
 
 function build_demo() {
   console.log("build the demo...");
-  return src("examples/demo/client.js").pipe(webpack(config)).pipe(dest("examples/demo/dist/"));
+  return src("examples/demo/main.js").pipe(webpack(config)).pipe(dest("examples/demo/dist/"));
 }
 
 exports.lint = lint;

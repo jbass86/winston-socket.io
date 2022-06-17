@@ -26,9 +26,9 @@ class SocketIO extends Transport {
 		this.name = 'socketio';
 		this.secure = options.secure || false;
 		
-		const hostname = options.host || (typeof window === "undefined" ? "localhost" : window.location.hostname);	
+		const hostname = options.host || (window ? window.location.hostname : "localhost");	
 		this.host = this.secure ? `https://${hostname}` : `http://${hostname}`;
-		this.port = options.port || (typeof window === "undefined" ? 3000 : window.location.port);
+		this.port = options.port || (window ? window.location.port : 3000);
 		
 		this.reconnect = options.reconnect || false;
 		this.namespace = options.namespace || null;
