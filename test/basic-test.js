@@ -53,8 +53,8 @@ describe("Basic Tests", () => {
   });
 
   it("can you set max queue size option", () => {
-    const transport = new SocketIO({ max_queue_size: 550 });
-    assert.deepEqual(transport.max_queue_size, 550);
+    const transport = new SocketIO({ max_buffer: 550 });
+    assert.deepEqual(transport.max_buffer, 550);
   });
 
   it("can you set encryption bool and secret", () => {

@@ -4,7 +4,8 @@
   },
   "extends": "eslint:recommended",
   "rules": {
-      "semi": "error"
+      "semi": "error",
+      "indent": ["error", 2]
   },
   "env": {
       "node": true,
