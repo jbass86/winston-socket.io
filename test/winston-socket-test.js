@@ -9,7 +9,7 @@ const server = require("http").createServer(app);
 const SocketIO = require('socket.io');
 const io = SocketIO(server);
 
-require('../lib/winston-socketio');
+require('../dist/index');
 
 let logger;
 

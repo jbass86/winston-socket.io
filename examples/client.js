@@ -1,7 +1,8 @@
 // @ts-nocheck
 
 var winston = require("winston");
-require("../lib/winston-socketio");
+//require("../lib/winston-socketio");
+require("../dist/index.js");
 
 let logger = winston.createLogger({
   level: "info",

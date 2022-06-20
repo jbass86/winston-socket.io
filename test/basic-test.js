@@ -3,7 +3,7 @@
 const mocha = require('mocha');
 const assert = require('assert');
 const winston = require('winston');
-const SocketIO = require('../lib/winston-socketio');
+const SocketIO = require('../dist/index');
 
 
 describe("Basic Tests", () => {
@@ -44,17 +44,17 @@ describe("Basic Tests", () => {
     };
 
     const transport = new SocketIO({ log_format: format });
-    assert.deepEqual(transport.log_format, format);
+    assert.deepEqual(transport.logFormat, format);
   });
 
   it("Can you set log topic option", () => {
     const transport = new SocketIO({ log_topic: "josh_topic" });
-    assert.deepEqual(transport.log_topic, "josh_topic");
+    assert.deepEqual(transport.logTopic, "josh_topic");
   });
 
   it("can you set max queue size option", () => {
     const transport = new SocketIO({ max_buffer: 550 });
-    assert.deepEqual(transport.max_buffer, 550);
+    assert.deepEqual(transport.maxBuffer, 550);
   });
 
   it("can you set encryption bool and secret", () => {

@@ -3,7 +3,7 @@
 require("setimmediate");
 
 import * as winston from "winston";
-import SocketIO from "../../lib/winston-socketio"
+import SocketIO from "../../lib/index"
 import BrowserConsole from 'winston-transport-browserconsole';
 
 const log = winston.createLogger({
@@ -18,7 +18,7 @@ const log = winston.createLogger({
       reconnect: true,
       namespace: "log",
       batch: true,
-      batch_interval: 5000,
+      batch_interval: 1000,
       batch_count: 25
     })
   ]

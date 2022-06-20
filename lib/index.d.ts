@@ -1,7 +1,7 @@
-import Transport from 'winston-transport';
+
 import { Socket } from 'socket.io-client';
 
-export interface SocketIOOptions extends Transport.TransportStreamOptions {
+export interface SocketIOOptions {
     secure?: boolean;
     host?: string;
     port?: number;
@@ -14,8 +14,9 @@ export interface SocketIOOptions extends Transport.TransportStreamOptions {
     batch_interval?: number;
     batch_count?: number;
 }
-export declare class SocketIO extends Transport {
-    default_format: Function;
+
+export declare class SocketIO {
+    default_format: any;
     name: string;
     secure: boolean;
     host: string;
@@ -23,17 +24,21 @@ export declare class SocketIO extends Transport {
     reconnect: boolean;
     namespace: string | null;
     log_topic: string;
-    log_format: Function;
-    max_queue_size: number;
+    max_buffer?: number;
+    batch?: boolean;
+    batch_interval?: number;
+    batch_count?: number;
     socket: typeof Socket;
+    log_format: any;
     _state: string;
     _queue: Array<any>;
     _flush_task: number;
     constructor(options: SocketIOOptions);
-    log(options: any, callback: Function): void;
-    open(callback: Function): void;
+    log(options: any, callback: any): void;
+    open(callback: any): void;
     close(): void;
     _enqueue(data: any): void;
     _flushQueue(): void;
 }
+
 export default SocketIO;
