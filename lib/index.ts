@@ -1,5 +1,3 @@
-import { SocketOptions } from "socket.io-client";
-
 /*
  * A winston transport for emitting logs to a socket.io server
  *

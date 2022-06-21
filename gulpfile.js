@@ -3,7 +3,7 @@
 
 const del = require("del");
 
-const { src, dest, parallel, series } = require('gulp');
+const { src, dest, series } = require('gulp');
 const ts = require('gulp-typescript');
 
 const mocha = require('gulp-mocha');
