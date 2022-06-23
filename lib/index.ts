@@ -85,21 +85,21 @@ class SocketIO extends Transport {
   /*
   * log - log a message to the server.  If the connection isn't open yet then the messages will be buffered.
   */
-  log(data: any, callback: any) {
+  public log(data: any, callback: any) : void {
 
-    this._enqueue(this.logFormat({...data}));
+    this.enqueue(this.logFormat({...data}));
 
     if (this.socketState === "uninitialized") {
       this.open();
     } else if (this.socketState === "open") {
       if (this.batch) {
         if (this.queue.length > this.batchCount) {
-          this._flushQueue();
+          this.flushQueue();
         } else if (!this.flushTask) {
-          this.flushTask = setTimeout(() => this._flushQueue(), this.batchInterval);
+          this.flushTask = setTimeout(() => this.flushQueue(), this.batchInterval);
         }
       } else {
-        this._flushQueue();
+        this.flushQueue();
       }
     }
 
@@ -109,7 +109,7 @@ class SocketIO extends Transport {
   /*
   * open - Open the socket.io connection, buffer up log statements until they can be sent over the wire.
   */
-  open() {
+  public open() : void {
 
     this.socket = io(`${this.host}:${this.port}${this.namespace ? "/" + this.namespace : ""}`, { secure: this.secure, reconnect: this.reconnect, ...this.socketOptions });
     if (this.encrypt) {
@@ -120,7 +120,7 @@ class SocketIO extends Transport {
 
     this.socket.on("connect", () => {
       this.socketState = "open";
-      this._flushQueue();
+      this.flushQueue();
     });
 
     this.socket.on("disconnect", () => {
@@ -129,7 +129,7 @@ class SocketIO extends Transport {
 
     this.socket.io.on("reconnect", () => {
       this.socketState = "open";
-      this._flushQueue();
+      this.flushQueue();
     });
 
     this.socket.io.on("error", () => {
@@ -144,7 +144,7 @@ class SocketIO extends Transport {
   /*
    * close - close socket when the transport is removed.
    */
-  close() {
+  public close() : void {
     if (this.socket) {
       this.socket.close();
       this.emit("closed");
@@ -154,7 +154,7 @@ class SocketIO extends Transport {
   /*
    * enqueue - add a log messge to the queue.  remove one if max log size has been reached.
    */
-  _enqueue(data: any) {
+  private enqueue(data: any) : void {
     this.queue.push(data);
     if (this.queue.length > this.maxBuffer) {
       this.queue.splice(0, 1);
@@ -165,7 +165,7 @@ class SocketIO extends Transport {
    * flushQueue - emit each of the log statemets to the server since we believe we
    *              are now connected.
    */
-  _flushQueue() {
+  private flushQueue() : void {
     if (this.flushTask !== null) {
       clearTimeout(this.flushTask);
     }
