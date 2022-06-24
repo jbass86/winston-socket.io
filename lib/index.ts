@@ -3,14 +3,13 @@
  *
  * Author: Josh Bass
  */
-const winston = require('winston');
-const Transport = require('winston-transport');
-const io = require("socket.io-client");
-const encrypt = require('socket.io-encrypt');
+import { default as io, Socket } from "socket.io-client";
+import Transport, { TransportStreamOptions } from "winston-transport";
+import encrypt from "socket.io-encrypt";
 
 const default_format = (data: any) => { return data; };
 
-interface Options {
+interface Options extends TransportStreamOptions{
   name: string;
   secure: boolean;
   host: string;
@@ -26,6 +25,12 @@ interface Options {
   batch_interval: number;
   secret: string;
   socket_options: any;
+}
+
+interface LogData {
+  level: string;
+  message: string;
+  meta: any;
 }
 
 //
@@ -52,7 +57,7 @@ class SocketIO extends Transport {
   socketState: string;
   queue: Array<any>;
   flushTask: NodeJS.Timeout | null;
-  socket: any;
+  socket: Socket;
 
   constructor(options: Options) {
 
@@ -85,7 +90,7 @@ class SocketIO extends Transport {
   /*
   * log - log a message to the server.  If the connection isn't open yet then the messages will be buffered.
   */
-  public log(data: any, callback: any) : void {
+  public log(data: LogData, callback: () => void) : void {
 
     this.enqueue(this.logFormat({...data}));
 
@@ -154,7 +159,7 @@ class SocketIO extends Transport {
   /*
    * enqueue - add a log messge to the queue.  remove one if max log size has been reached.
    */
-  private enqueue(data: any) : void {
+  private enqueue(data: LogData) : void {
     this.queue.push(data);
     if (this.queue.length > this.maxBuffer) {
       this.queue.splice(0, 1);
@@ -177,5 +182,4 @@ class SocketIO extends Transport {
   }
 }
 
-winston.transports.SocketIO = SocketIO;
 module.exports = SocketIO;
