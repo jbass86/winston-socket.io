@@ -5,7 +5,6 @@
  */
 import { default as io, Socket } from "socket.io-client";
 import Transport, { TransportStreamOptions } from "winston-transport";
-import encrypt from "socket.io-encrypt";
 
 const default_format = (data: any) => { return data; };
 
@@ -14,16 +13,15 @@ interface Options extends TransportStreamOptions{
   secure: boolean;
   host: string;
   port: number;
+  url: string;
   reconnect: boolean;
   namespace: string;
   log_topic: string;
   log_format: any;
-  encrypt: boolean;
   max_buffer: number;
   batch: boolean;
   batch_count: number;
   batch_interval: number;
-  secret: string;
   socket_options: any;
 }
 
@@ -41,21 +39,16 @@ class SocketIO extends Transport {
 
   name: string;
   secure: boolean;
-  host: string;
-  port: number;
-  reconnect: boolean;
-  namespace: string | null;
+  url: string;
   logTopic: string;
   logFormat: any;
   batch: boolean;
   batchInterval: number;
   batchCount: number;
   maxBuffer: number;
-  encrypt: boolean;
-  secret: string | null;
   socketOptions: any;
   socketState: string;
-  queue: Array<any>;
+  queue: Array<LogData>;
   flushTask: NodeJS.Timeout | null;
   socket: Socket;
 
@@ -66,20 +59,22 @@ class SocketIO extends Transport {
     this.name = 'socketio';
     this.secure = options.secure || false;
 
-    const hostname: string = options.host || (typeof window === "undefined" ? "localhost" : window.location.hostname);
-    this.host = this.secure ? `https://${hostname}` : `http://${hostname}`;
-    this.port = options.port || (typeof window === "undefined" ? 3000 : parseInt(window.location.port));
+    if (options.url) {
+      this.url = options.url;
+    } else {
+      const hostname: string = options.host || "";
+      const host: string = hostname ? this.secure ? `https://${hostname}` : `http://${hostname}` : "";
+      const port: number = options.port || (typeof window === "undefined" ? 3000 : parseInt(window.location.port));
+      const location: string = host ? `${host}:${port}` : "";
+      this.url = `${location}${options.namespace ? "/" + options.namespace : ""}`;
+    }
 
-    this.reconnect = options.reconnect || false;
-    this.namespace = options.namespace || null;
     this.logTopic = options.log_topic || "log";
     this.logFormat = options.log_format || default_format;
     this.batch = options.batch;
     this.batchInterval = Number.isFinite(options.batch_interval) ? options.batch_interval : 1000;
     this.batchCount = Number.isFinite(options.batch_count) ? options.batch_count : 10;
     this.maxBuffer = options.max_buffer || 1000;
-    this.encrypt = options.encrypt || false;
-    this.secret = this.encrypt ? options.secret : null;
     this.socketOptions = options.socket_options;
 
     this.socketState = "uninitialized";
@@ -115,11 +110,8 @@ class SocketIO extends Transport {
   * open - Open the socket.io connection, buffer up log statements until they can be sent over the wire.
   */
   public open() : void {
-
-    this.socket = io(`${this.host}:${this.port}${this.namespace ? "/" + this.namespace : ""}`, { secure: this.secure, reconnect: this.reconnect, ...this.socketOptions });
-    if (this.encrypt) {
-      encrypt(this.secret)(this.socket);
-    }
+   
+    this.socket = io(this.url, { ...this.socketOptions });
 
     this.socketState = "pending";
 

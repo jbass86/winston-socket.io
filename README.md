@@ -8,19 +8,18 @@ See the examples folder for more usage details.
 
 ## Options
 
-* __host__: The hostname of the socket.io server __(default: localhost)__.
+* __host__: The hostname of the socket.io server __(default: "")__.
 * __port__: The port of the socket.io server __(default: 3000)__.
-* __secure__: Use https for the socket.io server connection __(default: false)__.
-* __reconnect__: Reconnect to socket.io server connection __(default: false)__.
+* __url__: The url you wish to connect to (will override host and port options) __(default: "")__.
+* __secure__: Use https for the socket.io server connection (will be overriden by url option) __(default: false)__.
 * __namespace__: The socket.io namespace to use for the logs __(default: "log")__.
 * __log_topic__: The topic to send the log messages on __(default: "log")__.
-* __encrypt__: Choose to encrypt winston socket logs or not __(default: false)__
-* __secret__: the passphrase to encrypt logs with [needs __encrypt__ to be __true__ to allow changing it ] __(default: null)__
 * __log_format__: The format in which to log the information.
 * __batch__: whether or not to batch log messages and send them out in groups instead of immediately when logging __(default: false)__
 * __batch_interval__: amount of time in ms to wait after logging to flush log queue and send over the socket __(default: 1000)__
 * __batch_count__: maximum number of log messages to queue before sending over the socket __(default: 10)__
 * __max_buffer__: The maximum number of messages to queue up for publishing if the client isnt connected to the server or if batching __(default: 1000)__.
+* __socket_options__: Any options you wish to give to the socket client __(default: nothing)__.
 
 ## How to use it
 
@@ -37,7 +36,6 @@ See the examples folder for more usage details.
           host: "myhost",
           port: 8080
           secure: true,
-          reconnect: true,
           namespace: "log",
           log_topic: "log"
         }
@@ -60,7 +58,6 @@ Can also be added to Winston as a transport in this method
     host: "myhost",
     port: 8080
     secure: true,
-    reconnect: true,
     namespace: "log",
     log_topic: "log"
   }));

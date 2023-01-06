@@ -8,19 +8,19 @@ const SocketIO = require('../dist/index');
 
 describe("Basic Tests", () => {
 
-  it("Is this an instance of the transport", () => {
-    const transport = new SocketIO({ host: "test" });
-    assert.deepEqual(transport.host, "http://test");
+  it("Can you set url option", () => {
+    const transport = new SocketIO({ url: "http://test:8080/josh", host: "test" });
+    assert.ok(transport.url === "http://test:8080/josh");
   });
 
   it("Can you set hostname option", () => {
     const transport = new SocketIO({ host: "test" });
-    assert.deepEqual(transport.host, "http://test");
+    assert.ok(transport.url.includes("http://test"));
   });
 
   it("Can you set port option", () => {
-    const transport = new SocketIO({ port: 8085 });
-    assert.deepEqual(transport.port, 8085);
+    const transport = new SocketIO({ host: "test", port: 8085 });
+    assert.ok(transport.url.includes("8085"));
   });
 
   it("Can you set secure", () => {
@@ -28,14 +28,9 @@ describe("Basic Tests", () => {
     assert.deepEqual(transport.secure, true);
   });
 
-  it("Can you set reconnect", () => {
-    const transport = new SocketIO({ reconnect: true });
-    assert.deepEqual(transport.reconnect, true);
-  });
-
   it("Can you set namespace option", () => {
     const transport = new SocketIO({ namespace: "josh_nsp" });
-    assert.deepEqual(transport.namespace, "josh_nsp");
+    assert.ok(transport.url.includes("josh_nsp"));
   });
 
   it("Can you set logformat option", () => {
@@ -57,11 +52,6 @@ describe("Basic Tests", () => {
     assert.deepEqual(transport.maxBuffer, 550);
   });
 
-  it("can you set encryption bool and secret", () => {
-    const transport = new SocketIO({ encrypt: true, secret: "hello" });
-    assert.deepEqual(transport.encrypt, true);
-    assert.deepEqual(transport.secret, "hello");
-  });
 });
 
 describe("Winston Integration Tests", () => {
@@ -93,13 +83,4 @@ describe("Winston Integration Tests", () => {
     }, Error);
   });
  
-  it("Can we add the winston transport, encrypt it and log to it without any errors", () => {
-    assert.doesNotThrow(function () {
-      const logger = winston.createLogger({});
-      logger.add(new SocketIO({host: "somehost", port: 8085 , encrypt: true , secret: "secret"}));
-      logger.log("info", "test log");
-      logger.remove(logger.transports.socketio);
-      logger.close();
-    }, Error);
-  });
 });
