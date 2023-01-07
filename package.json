@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/jbass86/winston-socket.io#readme",
   "dependencies": {
-    "socket.io-encrypt": "^0.2.1",
     "winston-transport": "^4.4.0"
   },
   "devDependencies": {
@@ -76,6 +75,6 @@
     "winston": "^3.0.0"
   },
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">= 12.0.0"
   }
 }

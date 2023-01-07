@@ -15,11 +15,11 @@ const log = winston.createLogger({
     }),
     new SocketIO(
     {
-      reconnect: true,
-      namespace: "log",
+      url: "http://localhost:8080/log",
+      // namespace: "log",
       batch: true,
       batch_interval: 1000,
-      batch_count: 25
+      batch_count: 25,
     })
   ]
 });
