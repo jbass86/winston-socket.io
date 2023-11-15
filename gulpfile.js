@@ -6,12 +6,10 @@ const del = require("del");
 const { src, dest, series } = require('gulp');
 const ts = require('gulp-typescript');
 
-const mocha = require('gulp-mocha');
 const eslint = require("gulp-eslint");
 const config = require("./webpack.config");
+const mochaPromise = import("gulp-mocha");
 
-const minimist = require("minimist");
-const args = minimist(process.argv.slice(2));
 
 const webpack = require("webpack-stream");
 
@@ -23,12 +21,14 @@ function lintfix(cb) {
     return src("lib/**/*.ts").pipe(eslint({fix: true, rules: {strict: 2}})).pipe(eslint.format()).pipe(dest("lib/"));
 }
 
-function test_basic(cb) {
-  return src("./test/basic-test.js", {read: false}).pipe(mocha({reporter: 'list'}));
+async function test_basic(cb) {
+  const mocha = await mochaPromise;
+  return src("./test/basic-test.js", {read: false}).pipe(mocha.default({reporter: 'list'}));
 }
 
-function test_socket(cb) {
-  return src("./test/winston-socket-test.js", {read: false}).pipe(mocha({reporter: 'list'}));
+async function test_socket(cb) {
+  const mocha = await mochaPromise;
+  return src("./test/winston-socket-test.js", {read: false}).pipe(mocha.default({reporter: 'list'}));
 }
 
 function build() {

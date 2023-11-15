@@ -1,10 +1,13 @@
 
 import { Socket } from 'socket.io-client';
+import Transport, { TransportStreamOptions } from "winston-transport";
 
-export interface SocketIOOptions {
+export interface SocketIOOptions extends TransportStreamOptions {
     secure?: boolean;
     host?: string;
     port?: number;
+    url?: string;
+    socket_options?: any;
     reconnect?: boolean;
     namespace?: string;
     log_topic?: string;
@@ -15,7 +18,7 @@ export interface SocketIOOptions {
     batch_count?: number;
 }
 
-export declare class SocketIO {
+export declare class SocketIO extends Transport {
     default_format: any;
     name: string;
     secure: boolean;

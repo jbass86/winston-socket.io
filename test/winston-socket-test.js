@@ -22,7 +22,7 @@ describe("standard winston socket test", function () {
         new winston.transports.Console(),
         new SocketIO({
           host: "localhost",
-          port: 3002,
+          port: 8080,
           secure: false,
           reconnect: true,
           log_topic: "log"
@@ -35,7 +35,7 @@ describe("standard winston socket test", function () {
   });
 
   it("recieves logs from winston through socket", (done) => {
-    server.listen(3002, "localhost");
+    server.listen(8080, "0.0.0.0");
     io.on("connection", function (socket) {
       socket.on("log", function (data) {
         JSON.stringify(data).should.equal("[{\"meta\":\"some additional data\",\"level\":\"info\",\"message\":\"I'm logging to the socket.io server!!!\"}]");
